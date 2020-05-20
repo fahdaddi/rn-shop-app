@@ -47,7 +47,7 @@ const Home = (props) => {
 
   return (
     <View style={styles.screen}>
-      <ScrollView showsHorizontalScrollIndicator={false} style={styles.scroleProducts}>
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.scroleProducts}>
         <View style={styles.container}>
           <Title leftText="See More" onPressLeft={() => {}}>
             Shop By Department
