@@ -13,6 +13,7 @@ export default {
         xlarge: 40
     },
     header: {
-        backgroundColor: Colors.primary,
+        // backgroundColor: Colors.primary,
+        backgroundColor: Colors.grey_light,
     },
 }
