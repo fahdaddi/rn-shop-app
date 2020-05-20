@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { View, ScrollView, Image, StyleSheet } from "react-native";
-import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import { View, ScrollView, Image, Text, StyleSheet } from "react-native";
+import { HeaderButtons, Item } from "react-navigation-header-buttons";
 
 // importing constants
 import CustomStyle from "../constants/GlobalStyle";
@@ -8,9 +8,11 @@ import Colors from "../constants/Colors";
 
 // importing components
 import ProductCard from "../components/ProductCard";
-import HeaderButton from '../components/HeaderButton';
+import DealCard from "../components/DealCard";
+import HeaderButton from "../components/HeaderButton";
+import Title from "../components/CustomTitle";
 // Importing static data
-import { Products } from "../data/Products";
+import { Products, Deals, Categories } from "../data/Products";
 
 const Home = (props) => {
   const [loading, setLoading] = useState(true);
@@ -21,11 +23,45 @@ const Home = (props) => {
       params: { productId: product.id },
     });
   };
+  const gotoDeal = (deal) => {
+    console.log("need BE to redirect to same component as products");
+  };
+
+  const renderCategory = (gategory) => {
+    return (
+      <View style={styles.categoryCard} key={`category_${gategory.id}`}>
+        <Image style={styles.categoryImage} source={{ uri: gategory.image }} />
+        <Text style={styles.categoryTitle}>{gategory.name}</Text>
+      </View>
+    );
+  };
+
+  const renderDeal = (item) => {
+    return <DealCard
+      style={styles.DealItem}
+      OnPressCard={gotoDeal}
+      deal={item}
+      key={`deal_${item.id}`}
+    />;
+  };
 
   return (
     <View style={styles.screen}>
-      <ScrollView style={styles.scroleProducts}>
+      <ScrollView showsHorizontalScrollIndicator={false} style={styles.scroleProducts}>
         <View style={styles.container}>
+          <Title leftText="See More" onPressLeft={() => {}}>
+            Shop By Department
+          </Title>
+          <ScrollView showsHorizontalScrollIndicator={false} horizontal>
+            {Categories.map((item) => renderCategory(item))}
+          </ScrollView>
+          <Title leftText="See More" onPressLeft={() => {}}>
+            Deals Of The Day
+          </Title>
+          {Deals.map((item) => renderDeal(item))}
+          <Title leftText="See More" onPressLeft={() => {}}>
+            You Might Also Like
+          </Title>
           {Products.map((item) => (
             <ProductCard
               style={styles.ProductItem}
@@ -42,7 +78,16 @@ const Home = (props) => {
 
 Home.navigationOptions = (navigationData) => {
   return {
-    headerRight: () => <HeaderButtons HeaderButtonComponent={HeaderButton}><Item title="cart" iconName="shopping-cart" iconSize={28} onPress={() => navigationData.navigation.navigate("MyCart")}/></HeaderButtons>,
+    headerRight: () => (
+      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+        <Item
+          title="cart"
+          iconName="shopping-cart"
+          iconSize={28}
+          onPress={() => navigationData.navigation.navigate("MyCart")}
+        />
+      </HeaderButtons>
+    ),
     headerStyle: CustomStyle.header,
   };
 };
@@ -54,10 +99,28 @@ const styles = StyleSheet.create({
     paddingVertical: CustomStyle.screen.paddingVertical,
     backgroundColor: Colors.background,
   },
+  DealItem: {
+    marginBottom: 10,
+  },
   ProductItem: {
-    marginVertical: 20,
-    width: "80%",
+    marginBottom: 20,
+    width: "100%",
     alignSelf: "center",
+  },
+  categoryCard: {
+    width: 100,
+    marginRight: 20
+  },
+  categoryImage: {
+    height: 100,
+    width: 100,
+    borderRadius: 10,
+  },
+  categoryTitle: {
+    fontSize: CustomStyle.fontSize.medium,
+    fontFamily: 'default',
+    color: Colors.grey,
+    marginTop: 10
   },
 });
 

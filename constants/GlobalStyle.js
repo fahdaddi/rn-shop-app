@@ -8,8 +8,8 @@ export default {
     fontSize: {
         xsmall: 12,
         small: 16,
-        medium: 24,
-        large: 32,
+        medium: 18,
+        large: 24,
         xlarge: 40
     },
     header: {
