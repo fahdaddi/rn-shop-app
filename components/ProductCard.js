@@ -20,13 +20,19 @@ const ProductCard = (props) => {
       style={props.style}
       onPress={props.OnPressCard.bind(this, product)}
     >
-      <Card >
+      <Card>
         <View style={styles.container}>
           <View>
             <Image
               style={styles.image}
               source={{ uri: product.image }}
               resizeMode="cover"
+            />
+            <Feather
+              name="bookmark"
+              style={styles.bookmark}
+              onPress={() => console.log("bookmark")}
+              size={24}
             />
           </View>
           <View style={styles.detailsContainer}>
@@ -58,6 +64,11 @@ const ProductCard = (props) => {
 };
 
 const styles = StyleSheet.create({
+  bookmark: {
+    position: "absolute",
+    right: 10,
+    top: 10,
+  },
   container: {
     borderRadius: 10,
     overflow: "hidden",
