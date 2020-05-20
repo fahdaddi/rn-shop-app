@@ -17,9 +17,10 @@ const CustomTitle = (props) => {
             {props.leftText}
           </Text>
           <Feather
+          style={{marginTop: 5}}
             name={props.iconName || "chevron-right"}
             color={props.iconColor || Colors.grey}
-            size={24}
+            size={18}
           />
         </View>
       </TouchableWithoutFeedback>
@@ -42,6 +43,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flex: 1,
     opacity: 0.5,
+    alignItems: 'center',
     justifyContent: "space-between",
   },
   text: {
@@ -52,7 +54,7 @@ const styles = StyleSheet.create({
   },
   leftText: {
     fontFamily: "default-light",
-    fontSize: CustomStyle.fontSize.medium,
+    fontSize: CustomStyle.fontSize.small,
     color: Colors.grey,
     opacity: 0.5,
   },
