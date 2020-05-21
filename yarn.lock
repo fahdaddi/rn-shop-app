@@ -931,6 +931,11 @@
   dependencies:
     "@types/hammerjs" "^2.0.36"
 
+"@ercpereda/react-native-accordion@^2.0.6":
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/@ercpereda/react-native-accordion/-/react-native-accordion-2.0.6.tgz#a4d16c3861fd9b4adf5e6e1e0b46b2714b9f7dc6"
+  integrity sha512-1WmOP2CefcN1QD+18HQLlAepk6bLIQkPmoDKrIcZOaNL3U/qg3VY7JfY3V0AKMXpAXKcZembt9PDQYmJzBqp3Q==
+
 "@expo/vector-icons@^10.0.2":
   version "10.2.0"
   resolved "https://registry.yarnpkg.com/@expo/vector-icons/-/vector-icons-10.2.0.tgz#3c70656683a6a873e18efc00bc61fc160a80dc55"
@@ -4525,6 +4530,13 @@ react-native-platform-touchable@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/react-native-platform-touchable/-/react-native-platform-touchable-1.1.1.tgz#fde4acc65eea585d28b164d0c3716a42129a68e4"
   integrity sha1-/eSsxl7qWF0osWTQw3FqQhKaaOQ=
+
+react-native-reanimated@^1.8.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-1.8.0.tgz#0b5719b20c1fed9aaf8afd9a12e21c9bd46ee428"
+  integrity sha512-vGTt94lE5fsZmfMwERWFIsCr5LHsyllOESeNvlKryLgAg7h4cnJ5XSmVSy4L3qogdgFYCL6HEgY+s7tQmKXiiQ==
+  dependencies:
+    fbjs "^1.0.0"
 
 react-native-safe-area-context@^1.0.2:
   version "1.0.2"
