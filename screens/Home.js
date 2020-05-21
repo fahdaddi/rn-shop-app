@@ -37,17 +37,22 @@ const Home = (props) => {
   };
 
   const renderDeal = (item) => {
-    return <DealCard
-      style={styles.DealItem}
-      OnPressCard={gotoDeal}
-      deal={item}
-      key={`deal_${item.id}`}
-    />;
+    return (
+      <DealCard
+        style={styles.DealItem}
+        OnPressCard={gotoDeal}
+        deal={item}
+        key={`deal_${item.id}`}
+      />
+    );
   };
 
   return (
     <View style={styles.screen}>
-      <ScrollView showsVerticalScrollIndicator={false} style={styles.scroleProducts}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={styles.scroleProducts}
+      >
         <View style={styles.container}>
           <Title leftText="See More" onPressLeft={() => {}}>
             Shop By Department
@@ -88,6 +93,16 @@ Home.navigationOptions = (navigationData) => {
         />
       </HeaderButtons>
     ),
+    headerLeft: () => (
+      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+        <Item
+          title="cart"
+          iconName="menu"
+          iconSize={28}
+          onPress={() => navigationData.navigation.toggleDrawer()}
+        />
+      </HeaderButtons>
+    ),
     headerStyle: CustomStyle.header,
   };
 };
@@ -109,7 +124,7 @@ const styles = StyleSheet.create({
   },
   categoryCard: {
     width: 100,
-    marginRight: 20
+    marginRight: 20,
   },
   categoryImage: {
     height: 100,
@@ -118,9 +133,9 @@ const styles = StyleSheet.create({
   },
   categoryTitle: {
     fontSize: CustomStyle.fontSize.medium,
-    fontFamily: 'default',
+    fontFamily: "default",
     color: Colors.grey,
-    marginTop: 10
+    marginTop: 10,
   },
 });
 
