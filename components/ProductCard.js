@@ -1,18 +1,23 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Feather } from "@expo/vector-icons";
-import Card from "./Card";
+import { useDispatch } from "react-redux";
+
+import { addToCart } from "../store/actions/cart";
 
 import CustomStyle from "../constants/GlobalStyle";
 import Colors from "../constants/Colors";
 
 import FaButton from "../components/Button";
+import Card from "./Card";
 
 const ProductCard = (props) => {
   const { product } = props;
 
-  const handleCard = () => {
-    console.log("card");
+  const dispatch = useDispatch();
+
+  const addItemToCart = () => {
+    dispatch(addToCart(product));
   };
   return (
     <TouchableOpacity
@@ -50,9 +55,7 @@ const ProductCard = (props) => {
               icon="shopping-bag"
               iconSize={15}
               textStyle={styles.buttonTextStyle}
-              onPress={() => {
-                console.log("add to card: ", product.title);
-              }}
+              onPress={addItemToCart}
             >
               Add to cart
             </FaButton>

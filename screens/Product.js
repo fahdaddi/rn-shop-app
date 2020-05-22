@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, ScrollView, Text, Image, StyleSheet } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { Feather } from "@expo/vector-icons";
-// import { Avatar } from "native-base";
+import { useSelector, useDispatch } from 'react-redux';
+
+import { addToCart } from '../store/actions/cart'
+
 
 // importing constants
 import CustomStyle from "../constants/GlobalStyle";
@@ -14,13 +17,22 @@ import FaInput from "../components/Input";
 import HeaderButton from "../components/HeaderButton";
 import ShowRating from "../components/RatingShow";
 import Accordion from "../components/Accordion";
-// Importing static data
-import { Products } from "../data/Products";
 
 const Product = (props) => {
+  const [loading, setLoading] = useState(true);
+  
+  const Products = useSelector(state => state.products.products);
   const productId = props.navigation.getParam("productId");
   const product = Products.find((prod) => prod.id === productId);
-  const [loading, setLoading] = useState(true);
+
+  const dispatch = useDispatch();
+
+  const addItemToCart = () => {
+    dispatch(addToCart(product));
+    console.log('added To Card');
+    
+  }
+
   return (
     <View style={styles.screen}>
       <ScrollView>
@@ -54,7 +66,7 @@ const Product = (props) => {
       <View style={styles.footer}>
         <Feather name="bookmark" size={34} color={Colors.black} />
         <View style={styles.footerButtonContainer}>
-          <FaButton style={styles.footerButton}>Add to Cart</FaButton>
+          <FaButton onPress={addItemToCart} style={styles.footerButton}>Add to Cart</FaButton>
         </View>
       </View>
     </View>
