@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, ScrollView, Image, Text, StyleSheet } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import { useSelector } from 'react-redux';
 
 // importing constants
 import CustomStyle from "../constants/GlobalStyle";
@@ -12,10 +13,12 @@ import DealCard from "../components/DealCard";
 import HeaderButton from "../components/HeaderButton";
 import Title from "../components/CustomTitle";
 // Importing static data
-import { Products, Deals, Categories } from "../data/Products";
+import { Categories } from "../data/Products";
 
 const Home = (props) => {
   const [loading, setLoading] = useState(true);
+  const Products = useSelector(state => state.products.products);
+  const Deals = useSelector(state => state.products.deals);
 
   const gotoProduct = (product) => {
     props.navigation.navigate({
