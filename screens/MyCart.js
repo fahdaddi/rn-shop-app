@@ -1,32 +1,27 @@
 import React, { useState } from "react";
 import { View, ScrollView, Text, StyleSheet } from "react-native";
+import { useSelector } from "react-redux";
 
 // importing constants
 import CustomStyle from "../constants/GlobalStyle";
 import Colors from "../constants/Colors";
 
 // importing components
-import FaButton from "../components/Button";
+import CartItem from "../components/cart/Item";
 
-const Home = (props) => {
+const MyCart = (props) => {
+  const CartItems = useSelector((state) => state.myCart.cart);
   const [loading, setLoading] = useState(true);
+
+  const renderItem = (item) => {
+    return <CartItem product={item} key={`cart_item_${item.id}`} />;
+  };
+
   return (
     <View style={styles.screen}>
       <ScrollView>
         <Text>Home screen</Text>
-        {/* <FaButton
-          loading={loading}
-          onPress={() => {
-            setLoading(false);
-          }}
-        >Loading button</FaButton>
-        <FaButton>simple button</FaButton>
-        <FaButton hasIconLeft icon="facebook">
-          <Text>button</Text>
-        </FaButton>
-        <FaButton hasIconRight icon="chevron-right">
-          <Text>button</Text>
-        </FaButton> */}
+        {CartItems.map((item) => renderItem(item))}
       </ScrollView>
     </View>
   );
@@ -41,4 +36,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default MyCart;
