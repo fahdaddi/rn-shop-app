@@ -22,6 +22,8 @@ const AppNavigator = createStackNavigator({
         mode: 'modal'
     },
     Product: Product,
+    Register: Register,
+    Login: Login,
 }, {
     mode: "card",
     defaultNavigationOptions: {

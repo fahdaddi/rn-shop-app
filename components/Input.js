@@ -48,6 +48,7 @@ const Input = (props) => {
       <View style={{ ...styles.container, ...props.style }}>
         {IconLeft}
         <TextInput
+          secureTextEntry={props.secureTextEntry}
           onChangeText={props.onChangeText}
           value={props.value}
           style={{ ...styles.input, ...props.inputStyle }}
