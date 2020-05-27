@@ -1,7 +1,16 @@
-import React, { useState } from "react";
-import { View, ScrollView, Image, Text, StyleSheet } from "react-native";
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  ScrollView,
+  Image,
+  Text,
+  StyleSheet,
+  ActivityIndicator,
+} from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
+
+import { getProducts, getDeals } from "../store/actions/products";
 
 // importing constants
 import CustomStyle from "../constants/GlobalStyle";
@@ -16,9 +25,26 @@ import Title from "../components/CustomTitle";
 import { Categories } from "../data/Products";
 
 const Home = (props) => {
-  const [loading, setLoading] = useState(true);
-  const Products = useSelector(state => state.products.products);
-  const Deals = useSelector(state => state.products.deals);
+  const [loadingProducts, setLoadingProducts] = useState(true);
+  const [loadingDeals, setLoadingDeals] = useState(true);
+  const Products = useSelector((state) => state.products.products);
+  const Deals = useSelector((state) => state.products.deals);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getProducts()).then((res) => {
+      setLoadingProducts(false);
+    });
+  }, [dispatch]);
+
+  
+  useEffect(() => {
+      setLoadingDeals(false);
+    // No deals in the Firebase database
+    // dispatch(getDeals()).then((err) => {
+    //   setLoadingDeals(false);
+    // });
+  }, [dispatch]);
 
   const gotoProduct = (product) => {
     props.navigation.navigate({
@@ -27,9 +53,19 @@ const Home = (props) => {
     });
   };
   const gotoDeal = (deal) => {
-    console.log("need BE to redirect to same component as products");
+    props.navigation.navigate({
+      routeName: "Product",
+      params: { productId: deal.id },
+    });
   };
 
+  if (loadingProducts || loadingDeals) {
+    return (
+      <View style={{ ...styles.screen, justifyContent: "center" }}>
+        <ActivityIndicator />
+      </View>
+    );
+  }
   const renderCategory = (gategory) => {
     return (
       <View style={styles.categoryCard} key={`category_${gategory.id}`}>

@@ -5,7 +5,7 @@ import { Feather } from "@expo/vector-icons";
 import { useSelector, useDispatch } from 'react-redux';
 
 import { addToCart } from '../store/actions/cart'
-
+import { StoreProduct} from '../store/actions/products';
 
 // importing constants
 import CustomStyle from "../constants/GlobalStyle";
@@ -22,8 +22,12 @@ const Product = (props) => {
   const [loading, setLoading] = useState(true);
   
   const Products = useSelector(state => state.products.products);
+  const Deals = useSelector(state => state.products.deals);
   const productId = props.navigation.getParam("productId");
-  const product = Products.find((prod) => prod.id === productId);
+  let product = Products.find((prod) => prod.id === productId);
+  if( !product ){
+    product = Deals.find((prod) => prod.id === productId);
+  }
 
   const dispatch = useDispatch();
 
@@ -32,6 +36,11 @@ const Product = (props) => {
     console.log('added To Card');
     
   }
+
+  // const addItemToFirebase = () => {
+  //   dispatch(StoreProduct(product));
+  //   console.log('added To Card');
+  // }
 
   return (
     <View style={styles.screen}>
@@ -47,7 +56,12 @@ const Product = (props) => {
             }}
           >
             <Text style={styles.productTitle}>{product.title}</Text>
+            <View style={{ flexDirection: 'row', flex: 0}}>
             <Text style={styles.productPrice}>${product.price}</Text>
+            {
+              !product.oldPrice? null : <Text style={{...styles.productPrice, textDecorationLine: 'line-through', marginLeft: 10, color: Colors.grey}}>${product.oldPrice}</Text>
+            }
+            </View>
           </View>
           <Text style={styles.brand}>Brand</Text>
           <ShowRating size={5} rating={4} />
@@ -66,6 +80,7 @@ const Product = (props) => {
       <View style={styles.footer}>
         <Feather name="bookmark" size={34} color={Colors.black} />
         <View style={styles.footerButtonContainer}>
+          {/* <FaButton onPress={addItemToFirebase} style={styles.footerButton}>Add to Cart</FaButton> */}
           <FaButton onPress={addItemToCart} style={styles.footerButton}>Add to Cart</FaButton>
         </View>
       </View>
