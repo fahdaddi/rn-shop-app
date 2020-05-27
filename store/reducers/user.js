@@ -1,4 +1,4 @@
-import { SIGN_IN, SIGN_UP } from '../actions/user';
+import { AUTHENTICATE } from '../actions/user';
 
 const initialState = {
     user: {},
@@ -8,14 +8,7 @@ const initialState = {
 
 const userReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SIGN_IN:
-            return {
-                user: action.user,
-                token: action.token,
-                isAuth: true
-            }
-            break;
-        case SIGN_UP:
+        case AUTHENTICATE:
             return {
                 user: action.user,
                 token: action.token,

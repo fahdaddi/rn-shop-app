@@ -12,8 +12,9 @@ import Register from "../screens/Register";
 import Login from "../screens/Login";
 import MyCart from "../screens/MyCart";
 import Product from "../screens/Product";
-
+import StartScreen from '../screens/StartScreen';
 const AppNavigator = createStackNavigator({
+    StartScreen: StartScreen,
     Home: Home,
     // Register: Register,
     // Login: Login,
