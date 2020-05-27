@@ -8,6 +8,7 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
   Keyboard,
+  ToastAndroid,
 } from "react-native";
 import { Toast, Root } from "native-base";
 import { useDispatch } from "react-redux";
@@ -44,16 +45,21 @@ const Home = (props) => {
       })
       .catch((err) => {
         setLoading(false);
-        Toast.show({
-          text: err.message,
-          buttonText: "Okay",
-          textStyle: {
-            color: Colors.white,
-            fontSize: CustomStyle.fontSize.xsmall,
-            textAlign: "center",
-          },
-          duration: 3000,
-        });
+        if (Platform.OS === "android") {
+          ToastAndroid.show(err.message, ToastAndroid.SHORT);
+        } else {
+          Toast.show({
+            text: err.message,
+            buttonText: "Okay",
+            textStyle: {
+              color: Colors.white,
+              fontSize: CustomStyle.fontSize.xsmall,
+              fontFamily: "default",
+              textAlign: "center",
+            },
+            duration: 3000,
+          });
+        }
       });
   };
 

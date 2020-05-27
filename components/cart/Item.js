@@ -1,5 +1,14 @@
 import React from "react";
-import { View, StyleSheet, Image, Text, TouchableOpacity } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Image,
+  Text,
+  TouchableOpacity,
+  Platform,
+  ToastAndroid,
+} from "react-native";
+import { Toast } from "native-base";
 import { Feather } from "@expo/vector-icons";
 import { useDispatch } from "react-redux";
 
@@ -17,12 +26,27 @@ const CartItem = (props) => {
     dispatch(incrementQuantity(product.id));
   };
 
+  // TODO: ADD Total + count the deals discount percent
   const decrement = () => {
-      if(product.quantity == 1){
-        
-      }else{
-          dispatch(decrementQuantity(product.id));
+    if (product.quantity == 1) {
+      if (Platform.OS === "android") {
+        ToastAndroid.show("Minimum quantity is 1!", ToastAndroid.SHORT);
+      } else {
+        Toast.show({
+          text: "Minimum quantity is 1!",
+          buttonText: "Okay",
+          textStyle: {
+            color: Colors.white,
+            fontSize: CustomStyle.fontSize.xsmall,
+            fontFamily: "default",
+            textAlign: "center",
+          },
+          duration: 3000,
+        });
       }
+    } else {
+      dispatch(decrementQuantity(product.id));
+    }
   };
 
   return (
@@ -41,7 +65,22 @@ const CartItem = (props) => {
             justifyContent: "space-between",
           }}
         >
-          <Text style={styles.price}>${product.price}</Text>
+          <View style={{ flexDirection: "row", flex: 0, alignItems: 'center' }}>
+            {!product.oldPrice ? null : (
+              <Text
+                style={{
+                  ...styles.price,
+                  marginRight: 5,
+                  color: Colors.grey,
+                  textDecorationLine: "line-through",
+                  fontFamily: 'default-semi-bold'
+                }}
+              >
+                ${product.oldPrice}
+              </Text>
+            )}
+            <Text style={styles.price}>${product.price}</Text>
+          </View>
           <View
             style={{
               flexDirection: "row",

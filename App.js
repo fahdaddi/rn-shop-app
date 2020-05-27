@@ -35,7 +35,7 @@ const fetchFonts = () => {
     "default-extra-bold": require("./assets/fonts/NunitoSans-ExtraBold.ttf"),
     "default-bold": require("./assets/fonts/NunitoSans-Bold.ttf"),
     "default-semi-bold": require("./assets/fonts/NunitoSans-SemiBold.ttf"),
-    default: require("./assets/fonts/NunitoSans-Regular.ttf"),
+    "default": require("./assets/fonts/NunitoSans-Regular.ttf"),
     "default-light": require("./assets/fonts/NunitoSans-Light.ttf"),
   });
 };
