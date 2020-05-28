@@ -1,10 +1,13 @@
-import { ADD_TO_CART, INCREMENT_QUANTITY, DECREMENT_QUANTITY } from '../actions/cart';
+import { ADD_TO_CART, INCREMENT_QUANTITY, DECREMENT_QUANTITY, ADD_ITEMS_TO_STATE } from '../actions/cart';
 const initialState = {
     cart: [],
 }
 
 const cartReducer = (state = initialState, action) => {
     switch (action.type) {
+        case ADD_ITEMS_TO_STATE:
+            return { cart: action.products }
+            break;
         case ADD_TO_CART:
             let newProduct = action.product;
             let index = state.cart.findIndex(item => item.id === newProduct.id);

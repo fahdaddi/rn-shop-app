@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { Toast, Root } from "native-base";
 
 import { authenticate } from "../store/actions/user";
+import { addItemsToState } from "../store/actions/cart";
 
 import Colors from "../constants/Colors";
 import CustomStyle from "../constants/GlobalStyle";
@@ -60,6 +61,19 @@ const StartScreen = (props) => {
       }
     };
 
+    const getCartItems = async () => {
+      let storedCart = await AsyncStorage.getItem("cartItems");
+      if (!storedCart) {
+        return;
+      }
+      let cartItems = JSON.parse(storedCart);
+      if (!cartItems || !cartItems.items) {
+        return;
+      }
+      dispatch(addItemsToState(cartItems.items));
+    };
+
+    getCartItems();
     login();
   });
 
